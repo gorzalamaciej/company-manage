@@ -8,4 +8,6 @@ public interface EmployeeDao extends BaseDao<Employee> {
 
     List<Employee> getEmployeeList();
 
+    Employee findBy(String email);
+
 }

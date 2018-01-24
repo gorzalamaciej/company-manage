@@ -1,6 +1,7 @@
 package com.bestapp.companymanage.controller;
 
 import com.bestapp.companymanage.service.EmployeeService;
+import com.bestapp.companymanage.type.request.EditEmployeeRequest;
 import com.bestapp.companymanage.type.request.EmployeeRequest;
 import com.bestapp.companymanage.type.response.EmployeeResponse;
 import org.slf4j.Logger;
@@ -36,5 +37,11 @@ public class EmployeeController {
         employeeService.addEmployee(request);
     }
 
+    @RequestMapping(value = "/edit")
+    @ResponseBody
+    public void edit(@Valid @RequestBody EditEmployeeRequest request) {
+        logger.info("/employee/edit = {}", request);
+        employeeService.editEmployee(request);
+    }
 
 }

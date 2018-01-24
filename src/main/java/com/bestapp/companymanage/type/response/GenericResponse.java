@@ -3,7 +3,8 @@ package com.bestapp.companymanage.type.response;
 public class GenericResponse {
     public enum Status {
         OK,
-        ERROR
+        ERROR,
+        EMPLOYEE_NOT_FOUND
     }
 
     private String status = Status.OK.toString();
@@ -16,6 +17,11 @@ public class GenericResponse {
     public GenericResponse(String status) {
         super();
         this.status = status;
+    }
+
+    public GenericResponse(Status status, String message) {
+        this.status = status.name();
+        this.message = message;
     }
 
     public String getStatus() {
