@@ -1,35 +1,38 @@
 package com.bestapp.companymanage.type.response;
 
 public class GenericResponse {
-    public enum Status {
-        OK,
-        ERROR,
-        EMPLOYEE_NOT_FOUND
+    public enum Code {
+        OK
     }
 
-    private String status = Status.OK.toString();
+    private String code = Code.OK.toString();
     private String message = "";
 
     public GenericResponse() {
         super();
     }
 
-    public GenericResponse(String status) {
+    public GenericResponse(String code) {
         super();
-        this.status = status;
+        this.code = code;
     }
 
-    public GenericResponse(Status status, String message) {
-        this.status = status.name();
+    public GenericResponse(String code, String message) {
+        this.code = code;
         this.message = message;
     }
 
-    public String getStatus() {
-        return status;
+    public GenericResponse(Code code, String message) {
+        this.code = code.name();
+        this.message = message;
     }
 
-    public GenericResponse getStatus(String status) {
-        this.status = status;
+    public String getCode() {
+        return code;
+    }
+
+    public GenericResponse getCodes(String code) {
+        this.code = code;
         return this;
     }
 
@@ -37,7 +40,7 @@ public class GenericResponse {
         return message;
     }
 
-    public void setMEssage(String message) {
+    public void setMessage(String message) {
         this.message = message;
     }
 }

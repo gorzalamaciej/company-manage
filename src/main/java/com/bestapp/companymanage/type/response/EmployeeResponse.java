@@ -2,39 +2,33 @@ package com.bestapp.companymanage.type.response;
 
 import com.bestapp.companymanage.data.dto.Employee;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class EmployeeResponse extends GenericResponse {
-
-    private List<EmployeeData> employees;
+    private EmployeeData data;
 
     public EmployeeResponse() {
-        super();
+
     }
 
-    public EmployeeResponse(List<Employee> employeeList) {
-        if(employees == null) {
-            employees = new ArrayList<>();
-        }
-
-        for (Employee employee : employeeList) {
-            employees.add(new EmployeeData("", employee.getName(), employee.getSurname(), employee.getAvailableDate()));
-        }
+    public EmployeeResponse(Employee employee) {
+        this.data = new EmployeeData(employee);
     }
 
-    public List<EmployeeData> getEmployees() {
-        return employees;
+    public EmployeeResponse(EmployeeData data) {
+        this.data = data;
     }
 
-    public void setEmployees(List<EmployeeData> employees) {
-        this.employees = employees;
+    public EmployeeData getData() {
+        return data;
+    }
+
+    public void setData(EmployeeData data) {
+        this.data = data;
     }
 
     @Override
     public String toString() {
         return "EmployeeResponse{" +
-                "employees=" + employees +
-                '}';
+                "data=" + data +
+                "} " + super.toString();
     }
 }

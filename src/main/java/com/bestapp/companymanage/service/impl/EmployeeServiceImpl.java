@@ -3,9 +3,12 @@ package com.bestapp.companymanage.service.impl;
 import com.bestapp.companymanage.data.dao.EmployeeDao;
 import com.bestapp.companymanage.data.dto.Employee;
 import com.bestapp.companymanage.service.EmployeeService;
+import com.bestapp.companymanage.type.request.AddEmployeeRequest;
+import com.bestapp.companymanage.type.request.DeleteEmployeeRequest;
 import com.bestapp.companymanage.type.request.EditEmployeeRequest;
-import com.bestapp.companymanage.type.request.EmployeeRequest;
+import com.bestapp.companymanage.type.response.EmployeeListResponse;
 import com.bestapp.companymanage.type.response.EmployeeResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,13 +23,18 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     @Transactional
-    public EmployeeResponse getAll() {
-        return new EmployeeResponse(employeeDao.getEmployeeList());
+    public EmployeeListResponse getAll() {
+        return new EmployeeListResponse(employeeDao.getEmployeeList());
+    }
+
+    @Override
+    public EmployeeResponse get(String email) {
+        return new EmployeeResponse(employeeDao.findBy(email));
     }
 
     @Override
     @Transactional
-    public void addEmployee(EmployeeRequest request) {
+    public void add(AddEmployeeRequest request) {
         Employee employee = new Employee();
         employee.setActivated(true);
         employee.setAvailableDate(new Date());
@@ -40,7 +48,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     @Transactional
-    public void editEmployee(EditEmployeeRequest request) {
+    public void update(EditEmployeeRequest request) {
         Employee employee = employeeDao.findBy(request.getEmail());
 
         if (request.getAvailableDate() != null) {
@@ -60,5 +68,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
 
         employeeDao.saveOrUpdate(employee);
+    }
+
+    @Override
+    @Transactional
+    public void delete(DeleteEmployeeRequest request) {
+        Employee employee = employeeDao.findBy(request.getEmail(), request.getPasswordHash());
+        employeeDao.delete(employee);
     }
 }

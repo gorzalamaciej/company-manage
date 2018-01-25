@@ -1,20 +1,28 @@
 package com.bestapp.companymanage.type.request;
 
-public class EmployeeRequest {
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = AddEmployeeRequest.class),
+        @JsonSubTypes.Type(value = EditEmployeeRequest.class),
+})
+public class EmployeeData {
     private String name;
     private String surname;
     private String email;
-    private String passwordHash;
     private String position;
 
-    public EmployeeRequest() {
+    public EmployeeData() {
     }
 
-    public EmployeeRequest(String name, String surname, String email, String passwordHash, String position) {
+    public EmployeeData(String name, String surname, String email, String position) {
         this.name = name;
         this.surname = surname;
         this.email = email;
-        this.passwordHash = passwordHash;
         this.position = position;
     }
 
@@ -42,14 +50,6 @@ public class EmployeeRequest {
         this.email = email;
     }
 
-    public String getPasswordHash() {
-        return passwordHash;
-    }
-
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
-    }
-
     public String getPosition() {
         return position;
     }
@@ -64,7 +64,6 @@ public class EmployeeRequest {
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +
-                ", passwordHash='" + passwordHash + '\'' +
                 ", position='" + position + '\'' +
                 '}';
     }

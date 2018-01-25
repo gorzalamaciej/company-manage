@@ -1,9 +1,12 @@
 package com.bestapp.companymanage.controller;
 
 import com.bestapp.companymanage.service.EmployeeService;
+import com.bestapp.companymanage.type.request.AddEmployeeRequest;
+import com.bestapp.companymanage.type.request.DeleteEmployeeRequest;
 import com.bestapp.companymanage.type.request.EditEmployeeRequest;
-import com.bestapp.companymanage.type.request.EmployeeRequest;
+import com.bestapp.companymanage.type.response.EmployeeListResponse;
 import com.bestapp.companymanage.type.response.EmployeeResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.validation.Valid;
-
 @Controller
-@RequestMapping(value = "/employee", method = RequestMethod.POST)
+@RequestMapping(value = "/employee")
 public class EmployeeController {
 
     private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
@@ -24,24 +25,37 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-    @RequestMapping(value = "/getAll")
+    @RequestMapping(value = "/getAll", method = RequestMethod.POST)
     @ResponseBody
-    public EmployeeResponse getAll() {
+    public EmployeeListResponse getAll() {
         return employeeService.getAll();
     }
 
-    @RequestMapping(value = "/add")
+    @RequestMapping(value = "/get", method = RequestMethod.GET)
     @ResponseBody
-    public void add(@Valid @RequestBody EmployeeRequest request) {
-        logger.info("/employee/add = {}", request);
-        employeeService.addEmployee(request);
+    public EmployeeResponse get(String email) {
+        return employeeService.get(email);
     }
 
-    @RequestMapping(value = "/edit")
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public void edit(@Valid @RequestBody EditEmployeeRequest request) {
-        logger.info("/employee/edit = {}", request);
-        employeeService.editEmployee(request);
+    public void add(@RequestBody AddEmployeeRequest request) {
+        logger.info("/employee/add = {}", request);
+        employeeService.add(request);
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @ResponseBody
+    public void update(@RequestBody EditEmployeeRequest request) {
+        logger.info("/employee/update = {}", request);
+        employeeService.update(request);
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public void delete(@RequestBody DeleteEmployeeRequest request) {
+        logger.info("/employee/delete = {}", request);
+        employeeService.delete(request);
     }
 
 }

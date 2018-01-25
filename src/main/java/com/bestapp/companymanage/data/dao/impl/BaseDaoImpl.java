@@ -49,4 +49,9 @@ public class BaseDaoImpl<T extends BaseDto> implements BaseDao<T> {
   public void flush() {
     getCurrentSession().flush();
   }
+
+  @Transactional
+  public void delete(T dto) {
+    getCurrentSession().delete(dto);
+  }
 }

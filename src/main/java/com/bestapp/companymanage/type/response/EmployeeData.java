@@ -1,14 +1,23 @@
 package com.bestapp.companymanage.type.response;
 
+import com.bestapp.companymanage.data.dto.Employee;
+
 import java.util.Date;
 
-public class EmployeeData {
+public class EmployeeData extends GenericResponse {
     private String id;
     private String name;
     private String surname;
     private Date availableDate;
 
     public EmployeeData() {
+
+    }
+
+    public EmployeeData(Employee employee) {
+        this.name = employee.getName();
+        this.surname = employee.getSurname();
+        this.availableDate = employee.getAvailableDate();
     }
 
     public EmployeeData(String id, String name, String surname, Date availableDate) {

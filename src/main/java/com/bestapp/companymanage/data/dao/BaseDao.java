@@ -13,4 +13,6 @@ public interface BaseDao<T extends BaseDto> {
   void saveOrUpdate(T dto);
 
   void flush();
+
+  void delete(T dto);
 }

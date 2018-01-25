@@ -2,6 +2,8 @@ package com.bestapp.companymanage.data.dao.impl;
 
 import com.bestapp.companymanage.data.dao.EmployeeDao;
 import com.bestapp.companymanage.data.dto.Employee;
+import com.bestapp.companymanage.exception.EmployeeNotFoundException;
+
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -38,7 +40,22 @@ public class EmployeeDaoImpl extends BaseDaoImpl<Employee> implements EmployeeDa
         Employee employee = (Employee) criteria.uniqueResult();
 
         if (employee == null) {
-            //TODO add exception
+            throw  new EmployeeNotFoundException(String.format("Employee not found for email = {%s}", email));
+        }
+
+        return employee;
+    }
+
+    @Override
+    public Employee findBy(String email, String password) {
+        Criteria criteria = createCriteria();
+        criteria.add(Restrictions.eq("email", email));
+        criteria.add(Restrictions.eq("passwordHash", password));
+
+        Employee employee = (Employee) criteria.uniqueResult();
+
+        if (employee == null) {
+            throw  new EmployeeNotFoundException(String.format("Employee not found for email = {%s}", email));
         }
 
         return employee;
