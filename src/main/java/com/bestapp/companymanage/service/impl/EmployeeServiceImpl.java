@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -22,9 +23,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeDao employeeDao;
 
     @Override
-    @Transactional
-    public EmployeeListResponse getAll() {
+    public EmployeeListResponse getAllApi() {
         return new EmployeeListResponse(employeeDao.getEmployeeList());
+    }
+
+    @Override
+    @Transactional
+    public List<Employee> getAll() {
+        return employeeDao.getEmployeeList();
     }
 
     @Override

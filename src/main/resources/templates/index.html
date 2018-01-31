@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+    <title>Products - Spring MVC Application</title>
+    <th:block th:include="layout/header"></th:block>
+</head>
+<body>
+<div class="container">
+    <div class="text-left">
+        <h1>Dashboard</h1>
+    </div>
+    <div>
+        <div class="text-right row-task">
+            <button type="button" class="btn btn-default row-task">Default</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+                <h4>ToDo</h4>
+            <span class="glyphicon glyphicon-plus pull-right" aria-hidden="true"></span>
+        </div>
+        <div class="col-md-4">
+            <h4>In progress</h4>
+
+        </div>
+        <div class="col-md-4">
+            <h4>Completed</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="bordered row-task" th:if="${not #lists.isEmpty(employees)}">
+
+                <div th:each="employee : ${employees}">
+                    <div class="bordered orange">
+                        <p th:text="${employee.getName()}"></p>
+                    </div>
+                    <div class="bordered green">
+                        Opis jest bardzo pomocny Opis jest bardzo pomocny Opis jest bardzo pomocny Opis jest bardzo pomocny
+                    </div>
+                    <div class="bordered green">
+                        <b>Janek Kowal</b> 512-554-565
+                    </div>
+
+                    <div class="bordered green">
+                        <div class="margin-2">
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bordered row-task" th:if="${#lists.isEmpty(employees)}">
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            Transport jabłek
+
+        </div>
+        <div class="col-md-4">
+            Transport złota
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

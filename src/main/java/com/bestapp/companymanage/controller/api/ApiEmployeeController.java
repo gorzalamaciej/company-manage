@@ -1,4 +1,4 @@
-package com.bestapp.companymanage.controller;
+package com.bestapp.companymanage.controller.api;
 
 import com.bestapp.companymanage.service.EmployeeService;
 import com.bestapp.companymanage.type.request.AddEmployeeRequest;
@@ -18,18 +18,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping(value = "/employee")
-public class EmployeeController {
+@RequestMapping(value = "/api/employee")
+public class ApiEmployeeController {
 
-    private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ApiEmployeeController.class);
 
     @Autowired
     private EmployeeService employeeService;
 
-    @RequestMapping(path = "/getAll", method = RequestMethod.GET)
-    public String getAllProducts(Model model) {
-        model.addAttribute("employees", employeeService.getAll());
-        return "index";
+    @RequestMapping(value = "/getAll", method = RequestMethod.POST)
+    @ResponseBody
+    public EmployeeListResponse getAll() {
+        return employeeService.getAllApi();
     }
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)

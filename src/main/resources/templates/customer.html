@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>Customers</title>
+    <th:block th:include="layout/header"></th:block>
+</head>
+<body>
+<div class="container">
+    <div th:if="${not #lists.isEmpty(customers)}">
+        <h2>All customers</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>phoneNumber</th>
+            </tr>
+            <tr th:each="customer : ${customers}">
+                <td th:text="${customer.getName()}">Name</td>
+                <td th:text="${customer.getAddress()}">Address</td>
+                <td th:text="${customer.getPhoneNumber()}">phoneNumber</td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>
